@@ -20,7 +20,7 @@ function init() {
 
     /* Dragon curve */
     let axiom = "A";
-    let grammar = { "A": "A+B", "B": "A-B" };
+    let grammar = {"A": "A+B", "B": "A-B"};
     let theta = 2 * Math.PI / 4;
 
     let lSystem = new LSystem(axiom, grammar, theta);

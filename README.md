@@ -10,13 +10,14 @@ Assuming `npm` is installed, you can run the explorer as follows:
 ### Turtle actions
 Five turtle actions exist on symbols of the axiom:
 
-**A, B, C** : move forward while drawing a line
-**+** : rotate left
-**-** : rotate right
-**[** : push turtle on stack
+**A, B, C** : move forward while drawing a line  
+**+** : rotate left  
+**-** : rotate right  
+**[** : push turtle on stack  
 **]** : pop turtle from stack
 
 And, for completeness, implicit no-op:
+
 **(any)** : no action
 
 ### Axiom manipulation
@@ -27,10 +28,11 @@ grammar  = {"A": "A+B", "B": "A-B"};
 ```
 Let's call `lSystem.iterateN(3)`. The system will produce the following intermediate axioms by successively applying the production rules of the grammar to all characters of the axiom:
 
-0: "A"
-1: "A+B"
-2: "A+B+A-B"
-3: "A+B+A-B+A+B-A-B"
+0) "A"
+1) "A+B"
+2) "A+B+A-B"
+3) "A+B+A-B+A+B-A-B"
+
 
 This system (and most other systems) will grow exponentially. Setting the number of iterations too high will crash your browser.
 

@@ -3,7 +3,7 @@
 This project is capable of generating [L-systems](https://en.wikipedia.org/wiki/L-system). More specifically, it generates deterministic, context-free L-systems ([D0L-systems](https://en.wikipedia.org/wiki/Morphic_word#D0L_system)) that produce only connected curves. Generating line segment coordinates is done by means of [turtle graphics](https://en.wikipedia.org/wiki/Turtle_graphics). Finally, the line segments are efficiently rendered in 3D using [Three.js](https://threejs.org/), which also provides convenient 3D pan, zoom and rotation controls for the scene.
 
 ### Usage
-`npm install; npm run serve`
+`npm install; npm run build; npm run preview`
 
 ### Turtle actions
 Five turtle actions exist on symbols of the axiom:

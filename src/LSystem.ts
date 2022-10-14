@@ -1,6 +1,6 @@
 type grammar = { [key: string]: string };
 
-import { Turtle, Line2D, Vec2D } from "./index.js";
+import { Turtle, Line2D, Vec2D } from "./index";
 
 /**
  * This class describes the L-system, its generation and traversal.

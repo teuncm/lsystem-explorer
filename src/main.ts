@@ -1,8 +1,14 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { LSystem, Line2D, Vec2D } from "./index.js"
+import './style.css'
 
-let camera: any, controls: any, scene: any, renderer: any;
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+
+import { LSystem, Line2D, Vec2D } from "./index"
+
+let camera: THREE.PerspectiveCamera;
+let controls: OrbitControls;
+let scene: THREE.Scene;
+let renderer: THREE.WebGLRenderer;
 
 init();
 render();
@@ -14,17 +20,17 @@ function init() {
     // let theta = Math.PI / 4;
 
     /* Sierpinski triangle */
-    // let axiom = "A-B-B";
-    // let grammar = { "A": "A-B+A+B-A", "B": "BB" };
-    // let theta = 2 * Math.PI / 3;
+    let axiom = "A-B-B";
+    let grammar = { "A": "A-B+A+B-A", "B": "BB" };
+    let theta = 2 * Math.PI / 3;
 
     /* Dragon curve */
-    let axiom = "A";
-    let grammar = {"A": "A+B", "B": "A-B"};
-    let theta = 2 * Math.PI / 4;
+    // let axiom = "A";
+    // let grammar = {"A": "A+B", "B": "A-B"};
+    // let theta = 2 * Math.PI / 4;
 
     let lSystem = new LSystem(axiom, grammar, theta);
-    lSystem.iterateN(12);
+    lSystem.iterateN(2);
     lSystem.traverseAxiom();
 
     let lines2D = lSystem.lines;
@@ -53,7 +59,7 @@ function init() {
 
 function setupScene(center2D: Vec2D, dist: number, fovDeg: number, minDist: number, axiomY: number) {
     scene = new THREE.Scene();
-    scene.background = 0x000000;
+    scene.background = new THREE.Color( 0x000000 );
 
     renderer = new THREE.WebGLRenderer( { antialias: false, powerPreference: 'high-performance' } );
     renderer.setPixelRatio( 1 );
@@ -89,8 +95,10 @@ function render() {
 }
 
 function addGrid(size: number, divisions: number, nIter: number) {
+    let greyColor = new THREE.Color( 0x444444 );
+
     for(let i = 0; i < nIter; i++) {
-        scene.add( new THREE.GridHelper( size*(divisions**i), divisions, 0x444444, 0x444444 ) );
+        scene.add( new THREE.GridHelper( size*(divisions**i), divisions, greyColor, greyColor ) );
     }
 }
 

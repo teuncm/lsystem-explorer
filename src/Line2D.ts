@@ -1,4 +1,4 @@
-import { Vec2D } from "./index.js";
+import { Vec2D } from "./index";
 
 /**
  * This class describes a 2D line.

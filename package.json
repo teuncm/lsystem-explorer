@@ -1,14 +1,17 @@
 {
   "name": "lsystem",
-  "version": "1.0.0",
-  "description": "",
-  "main": "",
+  "type": "module",
   "scripts": {
-    "serve": "npx tsc; npx http-server"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "author": "Teun Mathijssen",
-  "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.8.4"
+    "@types/three": "^0.144.0",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0"
+  },
+  "dependencies": {
+    "three": "^0.144.0"
   }
 }

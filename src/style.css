@@ -1,9 +1,8 @@
 * {
     font-family: 'Fira Code';
-    font-size: 22px;
 }
 
-html, head, body {
+body {
 	height: 100%;
     width: 100%;
     margin: 0;

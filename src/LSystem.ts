@@ -1,4 +1,4 @@
-type grammar = { [key: string]: string };
+export type grammar = { [key: string]: string };
 
 import { Turtle, Line2D, Vec2D } from "./index";
 

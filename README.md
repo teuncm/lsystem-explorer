@@ -34,6 +34,7 @@ Let's call `lSystem.iterateN(3)`. The system will produce the following intermed
 This system (and most other systems) will grow exponentially. Setting the number of iterations too high will crash your browser.
 
 ### To do
+- Show all iterations stacked
 - Build web interface for user input
 - Parse user input
 - Show L-system presets

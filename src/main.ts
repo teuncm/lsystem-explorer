@@ -34,12 +34,12 @@ let nIter = 5;
 
 let simulation = new Simulation(lSystem);
 
-for(let i = 0; i < nIter; i++) {
+for(let i = 0; i <= nIter; i++) {
     simulation.iterate();
     simulation.traverseAxiom();
 
-    let axiomHeight = (nIter - i);
-    let hueFactor = i/(nIter - 1);
+    let axiomHeight = nIter - i + 1;
+    let hueFactor = i/nIter;
 
     addAxiomToScene(simulation.points, axiomHeight, getHSL(hueFactor));
 }

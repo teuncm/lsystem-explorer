@@ -73,6 +73,7 @@ export class Simulation {
         let curTurtle: Turtle = Turtle.init();
         let prevTurtles: Turtle[] = [];
 
+        this.points = [];
         for (let c of this.iteratedAxiom) {
             switch (c) {
                 case "A": case "B": case "C":

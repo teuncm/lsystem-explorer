@@ -2,7 +2,7 @@ import './style.css'
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { Simulation, LSystem, Vec2D, PRESETS } from "./index"
+import { Simulation, Vec2D, PRESETS } from "./index"
 
 let camera: THREE.PerspectiveCamera;
 let controls: OrbitControls;
@@ -29,8 +29,8 @@ const GRID_ITER = 5;
 setupScene();
 addGrid();
 
-let lSystem = PRESETS.sierpinski_regular;
-let nIter = 5;
+let lSystem = PRESETS.tree;
+let nIter = 17;
 
 let simulation = new Simulation(lSystem);
 
@@ -41,12 +41,12 @@ for(let i = 0; i <= nIter; i++) {
     let axiomHeight = nIter - i + 1;
     let hueFactor = i/nIter;
 
-    addAxiomToScene(simulation.points, axiomHeight, getHSL(hueFactor));
+    addAxiomToScene(simulation.points, axiomHeight, getColorString(hueFactor));
 }
 
 focus(simulation);
 
-function getHSL(hueFactor: number) {
+function getColorString(hueFactor: number) {
     return "hsl(" + (HUE_RANGE - hueFactor*HUE_RANGE) + ", 100%, 50%)";
 }
 
@@ -57,19 +57,25 @@ function setupScene() {
     scene = new THREE.Scene();
     scene.background = COLOR_BG;
 
-    renderer = new THREE.WebGLRenderer( { antialias: false, powerPreference: 'high-performance' } );
+    renderer = new THREE.WebGLRenderer( {
+        antialias: false,
+        powerPreference: 'high-performance',
+        stencil: false,
+	    depth: true,
+        logarithmicDepthBuffer: true,
+    } );
     renderer.setPixelRatio( 1 );
     renderer.setSize( window.innerWidth, window.innerHeight );
     document.body.appendChild( renderer.domElement );
 
-    camera = new THREE.PerspectiveCamera( FOV_DEG, window.innerWidth / window.innerHeight, 0.1, 1000000 );
+    camera = new THREE.PerspectiveCamera( FOV_DEG, window.innerWidth / window.innerHeight, 1, 400000 );
     camera.position.set( 0, BASE_Y + CAM_MIN_DIST, CAM_OFFSET_Z );
 
     controls = new OrbitControls( camera, renderer.domElement );
     controls.addEventListener( 'change', render );
     controls.screenSpacePanning = false;
     controls.minDistance = CAM_MIN_DIST;
-    controls.maxDistance = 100000;
+    controls.maxDistance = 250000;
     controls.maxPolarAngle = Math.PI / 2;
     controls.panSpeed = 2;
     controls.target = new THREE.Vector3( 0, BASE_Y, 0 );
@@ -85,13 +91,14 @@ function addGrid() {
     for(let i = 0; i < GRID_ITER; i++) {
         let grid = new THREE.GridHelper( GRID_SIZE*(GRID_DIVISIONS**i), GRID_DIVISIONS, COLOR_GRID, COLOR_GRID );
         grid.matrixAutoUpdate = false;
+        (<THREE.LineBasicMaterial>grid.material).depthWrite = false;
 
         scene.add( grid );
     }
 }
 
-function addAxiomToScene(points2D: Vec2D[], axiomHeight: number, color: string) {
-    const material = new THREE.LineBasicMaterial( {color: color } );
+function addAxiomToScene(points2D: Vec2D[], axiomHeight: number, colorString: string) {
+    const material = new THREE.LineBasicMaterial( {color: colorString } );
 
     const points = [];
     for(let point2D of points2D) {
